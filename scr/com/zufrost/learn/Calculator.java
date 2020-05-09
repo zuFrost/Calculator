@@ -8,15 +8,22 @@ public class Calculator {
     public static void main(String[] args) {
 
         StringExpression stringExpression = new StringExpression();
+        Validator validator = new Validator();
         stringExpression.setStringExpression(new ConsoleReadWrite().readStringExpressionFromConsole());
+        try {
+            validator.checkStringExpression(stringExpression.getStringExpression());
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        }
+
 //        System.out.println(stringExpression.getStringExpression());
 //        System.out.println(stringExpression);
-        Validator validator = new Validator();
 
-        if (validator.checkStringExpression(stringExpression.getStringExpression())) {
-            System.out.println("проверка строки " + stringExpression.getStringExpression() + " на валидность прошла успешно");
-        } else {
-            System.out.println("проверка строки " + stringExpression.getStringExpression() + " на валидность не прошла");
-        }
+
+//        if (validator.checkStringExpression(stringExpression.getStringExpression())) {
+//            System.out.println("проверка строки " + stringExpression.getStringExpression() + " на валидность прошла успешно");
+//        } else {
+//            System.out.println("проверка строки " + stringExpression.getStringExpression() + " на валидность не прошла");
+//        }
     }
 }
