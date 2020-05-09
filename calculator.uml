@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>com.zufrost.learn.service.Validator</OriginalElement>
+  <nodes>
+    <node x="0.0" y="398.0">com.zufrost.learn.entity.MathematicalExpression</node>
+    <node x="0.0" y="301.0">com.zufrost.learn.repository.IMathematicalExpressionRepository</node>
+    <node x="0.0" y="0.0">com.zufrost.learn.service.IValidator</node>
+    <node x="4.0" y="102.0">com.zufrost.learn.service.Validator</node>
+    <node x="348.0" y="102.0">com.zufrost.learn.entity.StringExpression</node>
+    <node x="148.0" y="0.0">com.zufrost.learn.service.IConsoleReadWrite</node>
+    <node x="176.0" y="204.0">com.zufrost.learn.Calculator</node>
+    <node x="152.0" y="102.0">com.zufrost.learn.service.ConsoleReadWrite</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.zufrost.learn.service.Validator" target="com.zufrost.learn.service.IValidator">
+      <point x="0.0" y="-26.0" />
+      <point x="0.0" y="26.0" />
+    </edge>
+    <edge source="com.zufrost.learn.service.ConsoleReadWrite" target="com.zufrost.learn.service.IConsoleReadWrite">
+      <point x="0.0" y="-26.0" />
+      <point x="0.0" y="26.0" />
+    </edge>
+    <edge source="com.zufrost.learn.Calculator" target="com.zufrost.learn.service.Validator">
+      <point x="-25.599999999999994" y="-26.0" />
+      <point x="214.4" y="174.0" />
+      <point x="94.0" y="174.0" />
+      <point x="30.0" y="26.0" />
+    </edge>
+    <edge source="com.zufrost.learn.Calculator" target="com.zufrost.learn.entity.StringExpression">
+      <point x="25.599999999999994" y="-26.0" />
+      <point x="265.6" y="174.0" />
+      <point x="392.0" y="174.0" />
+      <point x="-44.0" y="26.0" />
+    </edge>
+    <edge source="com.zufrost.learn.Calculator" target="com.zufrost.learn.service.ConsoleReadWrite">
+      <point x="0.0" y="-26.0" />
+      <point x="0.0" y="26.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="64.0" y="117.0" />
+  <SelectedNodes>
+    <node>com.zufrost.learn.service.IValidator</node>
+    <node>com.zufrost.learn.service.Validator</node>
+  </SelectedNodes>
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
