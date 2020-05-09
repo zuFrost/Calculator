@@ -9,6 +9,9 @@ public class Calculator {
 //        mathematicalExpression.setStringKindExpression("1 + 2 * 3");
 //        System.out.println(mathematicalExpression.toString());
 //        System.out.println(mathematicalExpression.hashCode());
-        StringExpression stringExpression = new StringExpression(new ConsoleReadWrite().readStringExpressionFromConsole());
+        StringExpression stringExpression = new StringExpression();
+        stringExpression.setStringExpression(new ConsoleReadWrite().readStringExpressionFromConsole());
+        System.out.println(stringExpression.getStringExpression());
+        System.out.println(stringExpression);
     }
 }
