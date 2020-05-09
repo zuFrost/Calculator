@@ -10,11 +10,14 @@ public class Calculator {
         StringExpression stringExpression = new StringExpression();
         Validator validator = new Validator();
         stringExpression.setStringExpression(new ConsoleReadWrite().readStringExpressionFromConsole());
+        //если валидатор пройден - отправляем строку на парсер
+
         try {
             validator.checkStringExpression(stringExpression.getStringExpression());
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
         }
+
 
 //        System.out.println(stringExpression.getStringExpression());
 //        System.out.println(stringExpression);
