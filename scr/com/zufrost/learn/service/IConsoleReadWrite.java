@@ -1,8 +1,8 @@
 package com.zufrost.learn.service;
 
-public interface IConsolReadWrite {
+public interface IConsoleReadWrite {
 
-    String read();
+    String readStringExpressionFromConsole();
 
 //    Answer write (Answer answer); //todo
 

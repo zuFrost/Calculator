@@ -1,8 +1,10 @@
 package com.zufrost.learn.entity;
 
 public class StringExpression {
+    String stringExpression;
 
-    StringExpression(){
-
+    public StringExpression(String stringExpression) {
+        this.stringExpression = stringExpression;
     }
 }
+

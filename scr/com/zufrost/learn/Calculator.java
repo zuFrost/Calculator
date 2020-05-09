@@ -1,7 +1,7 @@
 package com.zufrost.learn;
 
-import com.zufrost.learn.entity.MathematicalExpression;
-import com.zufrost.learn.service.ConsolReadWrite;
+import com.zufrost.learn.entity.StringExpression;
+import com.zufrost.learn.service.ConsoleReadWrite;
 
 public class Calculator {
     public static void main(String[] args) {
@@ -9,7 +9,6 @@ public class Calculator {
 //        mathematicalExpression.setStringKindExpression("1 + 2 * 3");
 //        System.out.println(mathematicalExpression.toString());
 //        System.out.println(mathematicalExpression.hashCode());
-        ConsolReadWrite consolReadWrite = new ConsolReadWrite();
-        consolReadWrite.read();
+        StringExpression stringExpression = new StringExpression(new ConsoleReadWrite().readStringExpressionFromConsole());
     }
 }
