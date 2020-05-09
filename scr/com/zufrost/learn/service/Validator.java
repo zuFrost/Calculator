@@ -1,8 +1,7 @@
 package com.zufrost.learn.service;
 
-public class Validator implements IValidator {
-    @Override
-    public boolean checkStringExpression(String stringExpression) {
+public class Validator {
+    public static boolean checkStringExpression(String stringExpression) {
         //проверка на пустую стоку
         if (stringExpression.equals("")) {
             throw new IllegalArgumentException("You input empty arithmetical expression");

@@ -8,15 +8,21 @@ public class Calculator {
     public static void main(String[] args) {
 
         StringExpression stringExpression = new StringExpression();
-        Validator validator = new Validator();
+//        Validator validator = new Validator();
         stringExpression.setStringExpression(new ConsoleReadWrite().readStringExpressionFromConsole());
-        //если валидатор пройден - отправляем строку на парсер
 
+        //если валидатор пройден - отправляем строку на парсер
         try {
-            validator.checkStringExpression(stringExpression.getStringExpression());
+            if (Validator.checkStringExpression(stringExpression.getStringExpression())) {
+
+
+
+            }
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
         }
+
+
 
 
 //        System.out.println(stringExpression.getStringExpression());
