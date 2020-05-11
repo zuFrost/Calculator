@@ -1,88 +1,112 @@
 package com.zufrost.learn.service;
 
-import java.util.LinkedList;
+import java.util.*;
 
 public class Parser {
-    public static String parser(String string) {
 
-        return string + " no edit";
-    }
+    private static String operators = "+-*/";
+    private static String delimiters = "() " + operators;
+    public static boolean flag = true;
 
-    static boolean isDelimeter(char c) { // тру если пробел
-        return c == ' ';
-    }
-
-    static boolean isOperator(char c) { // возвращяем тру если один из символов ниже
-        return c == '+' || c == '-' || c == '*' || c == '/' || c == '%';
-    }
-
-    static int priority(char op) {
-        switch (op) { // при + или - возврат 1, при * / % 2 иначе -1
-            case '+':
-            case '-':
-                return 1;
-            case '*':
-            case '/':
-            case '%':
-                return 2;
-            default:
-                return -1;
+    private static boolean isDelimiter(String token) {
+        if (token.length() != 1) return false;
+        for (int i = 0; i < delimiters.length(); i++) {
+            if (token.charAt(0) == delimiters.charAt(i)) return true;
         }
+        return false;
     }
 
-    static void processOperator(LinkedList<Float> notationInputString, char lastCharFromNotationInputStringWithOperators) {
-        Float operatorOne = notationInputString.removeLast(); // выдёргиваем из упорядоченного листа последний элемент
-        Float operatorTwo = notationInputString.removeLast(); // также
-        // выполняем действие между operatorOne и operatorTwo в зависимости от оператора в кейсе и результат в notationInputString
-        switch (lastCharFromNotationInputStringWithOperators) {
-            case '+':
-                notationInputString.add(operatorTwo + operatorOne);
-                break;
-            case '-':
-                notationInputString.add(operatorTwo - operatorOne);
-                break;
-            case '*':
-                notationInputString.add(operatorTwo * operatorOne);
-                break;
-            case '/':
-                notationInputString.add(operatorTwo / operatorOne);
-                break;
-            case '%':
-                notationInputString.add(operatorTwo % operatorOne);
-                break;
+    private static boolean isOperator(String token) {
+        if (token.equals("u-")) return true;
+        for (int i = 0; i < operators.length(); i++) {
+            if (token.charAt(0) == operators.charAt(i)) return true;
         }
+        return false;
     }
 
-    public static Float eval(String string) {
-        // числа
-        LinkedList<Float> notationInputString = new LinkedList<Float>();
-        // операторы и notationInputString и notationInputStringWithOperators в порядке поступления
-        LinkedList<Character> notationInputStringWithOperators = new LinkedList<Character>();
-        for (int i = 0; i < string.length(); i++) { // парсим строку с выражением и вычисляем
-            char charFromString = string.charAt(i);
-            if (isDelimeter(charFromString))
-                continue;
-            if (charFromString == '(')
-                notationInputStringWithOperators.add('(');
-            else if (charFromString == ')') {
-                while (notationInputStringWithOperators.getLast() != '(')
-                    processOperator(notationInputString, notationInputStringWithOperators.removeLast());
-                notationInputStringWithOperators.removeLast();
-            } else if (isOperator(charFromString)) {
-                while (!notationInputStringWithOperators.isEmpty() && priority(notationInputStringWithOperators.getLast()) >= priority(charFromString))
-                    processOperator(notationInputString, notationInputStringWithOperators.removeLast());
-                notationInputStringWithOperators.add(charFromString);
-            } else {
-                String operand = "";
-                while (i < string.length() && (Character.isDigit(string.charAt(i)) || (string.charAt(i) == '.')))
-                    operand += string.charAt(i++);
-                --i;
-                notationInputString.add(Float.parseFloat(operand));
+    private static boolean isFunction(String token) {
+        if (token.equals("sqrt") || token.equals("cube") || token.equals("pow10")) return true;
+        return false;
+    }
+
+    private static int priority(String token) {
+        if (token.equals("(")) return 1;
+        if (token.equals("+") || token.equals("-")) return 2;
+        if (token.equals("*") || token.equals("/")) return 3;
+        return 4;
+    }
+
+    public static List<String> parseToList(String infix) {
+        List<String> postfix = new ArrayList<String>();
+        Deque<String> stack = new ArrayDeque<String>();
+        StringTokenizer tokenizer = new StringTokenizer(infix, delimiters, true);
+        String prev = "";
+        String curr = "";
+        while (tokenizer.hasMoreTokens()) {
+            curr = tokenizer.nextToken();
+            if (!tokenizer.hasMoreTokens() && isOperator(curr)) {
+                System.out.println("Некорректное выражение.");
+                flag = false;
+                return postfix;
+            }
+            if (curr.equals(" ")) continue;
+            if (isFunction(curr)) stack.push(curr);
+            else if (isDelimiter(curr)) {
+                if (curr.equals("(")) stack.push(curr);
+                else if (curr.equals(")")) {
+                    while (!stack.peek().equals("(")) {
+                        postfix.add(stack.pop());
+                        if (stack.isEmpty()) {
+                            System.out.println("Скобки не согласованы.");
+                            flag = false;
+                            return postfix;
+                        }
+                    }
+                    stack.pop();
+                    if (!stack.isEmpty() && isFunction(stack.peek())) {
+                        postfix.add(stack.pop());
+                    }
+                }
+                else {
+                    if (curr.equals("-") && (prev.equals("") || (isDelimiter(prev)  && !prev.equals(")")))) {
+                        // унарный минус
+                        curr = "u-";
+                    }
+                    else {
+                        while (!stack.isEmpty() && (priority(curr) <= priority(stack.peek()))) {
+                            postfix.add(stack.pop());
+                        }
+
+                    }
+                    stack.push(curr);
+                }
+
+            }
+
+            else {
+                postfix.add(curr);
+            }
+            prev = curr;
+        }
+
+        while (!stack.isEmpty()) {
+            if (isOperator(stack.peek())) postfix.add(stack.pop());
+            else {
+                System.out.println("Скобки не согласованы.");
+                flag = false;
+                return postfix;
             }
         }
-        while (!notationInputStringWithOperators.isEmpty())
-            processOperator(notationInputString, notationInputStringWithOperators.removeLast());
-        return notationInputString.get(0);  // возврат результата
+        return postfix;
     }
 
+    public static String parseToString(String infix) {
+        List<String> postfix = parseToList(infix);
+        String expression = "";
+        for (String x : postfix) {
+            System.out.print(expression + x + " ");
+        }
+        return expression;
+
+    }
 }
