@@ -16,7 +16,7 @@ public class Validator {
             throw new IllegalArgumentException("Используйте '.' для разделения целой и дробной части числа");
         }
         // проверка на правильность ввода
-        if (!stringExpression.matches("[\\d0-9+\\-*\\/\\.]*")) {
+        if (!stringExpression.matches("[\\d0-9+\\-*\\/\\.\\s]*")) {
             throw new IllegalArgumentException("Строка содержит запрещенные символы. " +
                     "\nИспользуйте только цифры 0-9 разделитель дроби '.' и знаки математических операций '+' '-' '*' '/' ");
         }
