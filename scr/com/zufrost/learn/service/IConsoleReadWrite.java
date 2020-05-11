@@ -4,7 +4,7 @@ public interface IConsoleReadWrite {
 
     String readStringExpressionFromConsole();
 
-//    Answer write (Answer answer); //todo
+    void writeAnswerToConsole (Double answer);
 
 
 }

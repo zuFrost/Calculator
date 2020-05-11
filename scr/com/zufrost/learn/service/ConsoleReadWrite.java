@@ -9,4 +9,9 @@ public class ConsoleReadWrite implements IConsoleReadWrite {
         System.out.print("Input arithmetical expression: ");
         return scanner.nextLine();
     }
+
+    @Override
+    public void writeAnswerToConsole(Double answer) {
+        System.out.println("Ответ: " + answer);
+    }
 }
