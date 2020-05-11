@@ -1,7 +1,7 @@
 package com.zufrost.learn;
 
 import com.zufrost.learn.entity.Result;
-import com.zufrost.learn.entity.StringExpression;
+import com.zufrost.learn.entity.UsualStringExpression;
 import com.zufrost.learn.service.ComputeFromReversePolishNotation;
 import com.zufrost.learn.service.ConsoleReadWrite;
 import com.zufrost.learn.service.ReversePolishNotationParser;
@@ -18,7 +18,7 @@ public class Calculator {
     }
 
     public static void loopRunCalculating() {
-        StringExpression stringExpression = new StringExpression();
+        UsualStringExpression stringExpression = new UsualStringExpression();
         ConsoleReadWrite consoleReadWrite = new ConsoleReadWrite();
         Result result = new Result();
 

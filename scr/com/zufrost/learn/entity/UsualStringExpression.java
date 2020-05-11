@@ -1,9 +1,9 @@
 package com.zufrost.learn.entity;
 
-public class StringExpression {
+public class UsualStringExpression {
     private String stringExpression;
 
-    public StringExpression() {
+    public UsualStringExpression() {
     }
 
     public String getStringExpression() {
