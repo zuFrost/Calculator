@@ -21,9 +21,9 @@ public class Validator {
                     "\nИспользуйте только цифры 0-9 разделитель дроби '.' и знаки математических операций '+' '-' '*' '/' ");
         }
         //проверка на лидирующий '-' отрицательные числа \\A(-)
-        if (stringExpression.startsWith("-")) {
-            throw new IllegalArgumentException("Данная версия программы не поддерживает отрицательные числа");
-        }
+//        if (stringExpression.startsWith("-")) {
+//            throw new IllegalArgumentException("Данная версия программы не поддерживает отрицательные числа");
+//        }
         //проверка на лидирующий '+' '*' '/' '.'
         if (stringExpression.startsWith("+") ||
                 stringExpression.startsWith("*") ||

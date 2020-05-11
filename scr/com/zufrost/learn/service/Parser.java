@@ -104,7 +104,7 @@ public class Parser {
         List<String> postfix = parseToList(infix);
         String expression = "";
         for (String x : postfix) {
-            System.out.print(expression + x + " ");
+            expression = expression + x + " ";
         }
         return expression;
 
