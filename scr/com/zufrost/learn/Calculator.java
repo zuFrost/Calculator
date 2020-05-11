@@ -2,7 +2,7 @@ package com.zufrost.learn;
 
 import com.zufrost.learn.entity.Result;
 import com.zufrost.learn.entity.StringExpression;
-import com.zufrost.learn.service.Compute;
+import com.zufrost.learn.service.ComputeFromReversePolishNotation;
 import com.zufrost.learn.service.ConsoleReadWrite;
 import com.zufrost.learn.service.ReversePolishNotationParser;
 import com.zufrost.learn.service.Validator;
@@ -27,7 +27,7 @@ public class Calculator {
             stringExpression.setStringExpression(consoleReadWrite.readStringExpressionFromConsole());
             try {
                 if (Validator.checkStringExpression(stringExpression.getStringExpression())) {
-                    result.setResult(Compute.calculation(ReversePolishNotationParser.parseToString(stringExpression.getStringExpression())));
+                    result.setResult(ComputeFromReversePolishNotation.calculate(ReversePolishNotationParser.parseToString(stringExpression.getStringExpression())));
                     consoleReadWrite.writeAnswerToConsole(result.getResult());
 
                 }
