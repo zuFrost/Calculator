@@ -1,6 +1,7 @@
 package com.zufrost.learn;
 
 import com.zufrost.learn.entity.Result;
+import com.zufrost.learn.entity.ReversePolishNotationExpression;
 import com.zufrost.learn.entity.UsualStringExpression;
 import com.zufrost.learn.service.ComputeFromReversePolishNotation;
 import com.zufrost.learn.service.ConsoleReadWrite;
@@ -12,30 +13,27 @@ public class Calculator {
     public static void main(String[] args) {
 
 
-        loopRunCalculating();
+        RunCalculating();
 
 
     }
 
-    public static void loopRunCalculating() {
-        UsualStringExpression stringExpression = new UsualStringExpression();
+    public static void RunCalculating() {
         ConsoleReadWrite consoleReadWrite = new ConsoleReadWrite();
+        UsualStringExpression stringExpression = new UsualStringExpression();
+        ReversePolishNotationExpression reversePolishNotationExpression = new ReversePolishNotationExpression();
         Result result = new Result();
 
+        stringExpression.setStringExpression(consoleReadWrite.readStringExpressionFromConsole());
+        try {
+            Validator.checkStringExpression(stringExpression.getStringExpression());
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        }
+        reversePolishNotationExpression.setStringExpression(ReversePolishNotationParser.parseToString(stringExpression.getStringExpression()));
+        result.setResult(ComputeFromReversePolishNotation.calculate(reversePolishNotationExpression.getStringExpression()));
+        consoleReadWrite.writeAnswerToConsole(result.getResult());
 
-        do {
-            stringExpression.setStringExpression(consoleReadWrite.readStringExpressionFromConsole());
-            try {
-                if (Validator.checkStringExpression(stringExpression.getStringExpression())) {
-                    result.setResult(ComputeFromReversePolishNotation.calculate(ReversePolishNotationParser.parseToString(stringExpression.getStringExpression())));
-                    consoleReadWrite.writeAnswerToConsole(result.getResult());
-
-                }
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-            }
-
-        } while (true);
 
     }
 }
