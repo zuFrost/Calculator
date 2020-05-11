@@ -18,6 +18,7 @@ public class Calculator {
 
                 Double result = Compute.calculation(Parser.parseToString(stringExpression.getStringExpression()));
                 System.out.println(result);
+                stringExpression.
 
             }
         } catch (IllegalArgumentException e) {
