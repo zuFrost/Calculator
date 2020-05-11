@@ -21,6 +21,9 @@ public class Compute {
             else if (x.equals("*")) stack.push(stack.pop() * stack.pop());
             else if (x.equals("/")) {
                 Double b = stack.pop(), a = stack.pop();
+                if (b == 0) {
+                    throw new ArithmeticException("деление на ноль");
+                }
                 stack.push(a / b);
             }
             else if (x.equals("u-")) stack.push(-stack.pop());
