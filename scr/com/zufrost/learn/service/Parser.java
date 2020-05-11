@@ -8,7 +8,7 @@ public class Parser {
         return string + " no edit";
     }
 
-    static boolean isDelim(char c) { // тру если пробел
+    static boolean isDelimeter(char c) { // тру если пробел
         return c == ' ';
     }
 
@@ -30,56 +30,59 @@ public class Parser {
         }
     }
 
-    static void processOperator(LinkedList<Float> st, char op) {
-        Float r = st.removeLast(); // выдёргиваем из упорядоченного листа последний элемент
-        Float l = st.removeLast(); // также
-        switch (op) { // выполняем действие между l и r в зависимости от оператора в кейсе и результат валим в st
+    static void processOperator(LinkedList<Float> notationInputString, char lastCharFromNotationInputStringWithOperators) {
+        Float operatorOne = notationInputString.removeLast(); // выдёргиваем из упорядоченного листа последний элемент
+        Float operatorTwo = notationInputString.removeLast(); // также
+        // выполняем действие между operatorOne и operatorTwo в зависимости от оператора в кейсе и результат в notationInputString
+        switch (lastCharFromNotationInputStringWithOperators) {
             case '+':
-                st.add(l + r);
+                notationInputString.add(operatorTwo + operatorOne);
                 break;
             case '-':
-                st.add(l - r);
+                notationInputString.add(operatorTwo - operatorOne);
                 break;
             case '*':
-                st.add(l * r);
+                notationInputString.add(operatorTwo * operatorOne);
                 break;
             case '/':
-                st.add(l / r);
+                notationInputString.add(operatorTwo / operatorOne);
                 break;
             case '%':
-                st.add(l % r);
+                notationInputString.add(operatorTwo % operatorOne);
                 break;
         }
     }
 
-    public static Float eval(String s) {
-        LinkedList<Float> st = new LinkedList<Float>(); // сюда наваливают цифры
-        LinkedList<Character> op = new LinkedList<Character>(); // сюда опрераторы и st и op в порядке поступления
-        for (int i = 0; i < s.length(); i++) { // парсим строку с выражением и вычисляем
-            char c = s.charAt(i);
-            if (isDelim(c))
+    public static Float eval(String string) {
+        // числа
+        LinkedList<Float> notationInputString = new LinkedList<Float>();
+        // операторы и notationInputString и notationInputStringWithOperators в порядке поступления
+        LinkedList<Character> notationInputStringWithOperators = new LinkedList<Character>();
+        for (int i = 0; i < string.length(); i++) { // парсим строку с выражением и вычисляем
+            char charFromString = string.charAt(i);
+            if (isDelimeter(charFromString))
                 continue;
-            if (c == '(')
-                op.add('(');
-            else if (c == ')') {
-                while (op.getLast() != '(')
-                    processOperator(st, op.removeLast());
-                op.removeLast();
-            } else if (isOperator(c)) {
-                while (!op.isEmpty() && priority(op.getLast()) >= priority(c))
-                    processOperator(st, op.removeLast());
-                op.add(c);
+            if (charFromString == '(')
+                notationInputStringWithOperators.add('(');
+            else if (charFromString == ')') {
+                while (notationInputStringWithOperators.getLast() != '(')
+                    processOperator(notationInputString, notationInputStringWithOperators.removeLast());
+                notationInputStringWithOperators.removeLast();
+            } else if (isOperator(charFromString)) {
+                while (!notationInputStringWithOperators.isEmpty() && priority(notationInputStringWithOperators.getLast()) >= priority(charFromString))
+                    processOperator(notationInputString, notationInputStringWithOperators.removeLast());
+                notationInputStringWithOperators.add(charFromString);
             } else {
                 String operand = "";
-                while (i < s.length() && (Character.isDigit(s.charAt(i)) || (s.charAt(i) == '.') ))
-                    operand += s.charAt(i++);
+                while (i < string.length() && (Character.isDigit(string.charAt(i)) || (string.charAt(i) == '.')))
+                    operand += string.charAt(i++);
                 --i;
-                st.add(Float.parseFloat(operand));
+                notationInputString.add(Float.parseFloat(operand));
             }
         }
-        while (!op.isEmpty())
-            processOperator(st, op.removeLast());
-        return st.get(0);  // возврат результата
+        while (!notationInputStringWithOperators.isEmpty())
+            processOperator(notationInputString, notationInputStringWithOperators.removeLast());
+        return notationInputString.get(0);  // возврат результата
     }
 
 }

@@ -1,6 +1,7 @@
 package com.zufrost.learn;
 
 import com.zufrost.learn.entity.StringExpression;
+import com.zufrost.learn.service.Compute;
 import com.zufrost.learn.service.ConsoleReadWrite;
 import com.zufrost.learn.service.Parser;
 import com.zufrost.learn.service.Validator;
@@ -15,8 +16,8 @@ public class Calculator {
         //если валидатор пройден - отправляем строку на парсер
         try {
             if (Validator.checkStringExpression(stringExpression.getStringExpression())) {
-                System.out.println(Parser.parser(stringExpression.getStringExpression()));
-                System.out.println(Parser.eval(stringExpression.getStringExpression()));
+//                System.out.println(Parser.parser(stringExpression.getStringExpression()));
+                System.out.println(Compute.computing(stringExpression.getStringExpression()));
 
 
 
